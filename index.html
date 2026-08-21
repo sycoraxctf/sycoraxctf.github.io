@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sycorax</title>
+
+    <meta name="title" content="Sycorax — CTF &amp; Security Research Team">
+    <meta name="description"
+        content="Sycorax is a CTF and security research team focused on cybersecurity, research, and solving challenging problems.">
+    <meta name="keywords"
+        content="Sycorax, CTF team, cybersecurity, security research, offensive security, CTF, reverse engineering">
+    <meta name="author" content="Sycorax">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sycorax — CTF &amp; Security Research Team">
+    <meta property="og:description" content="CTF &amp; Security Research Team">
+    <meta property="og:image" content="./assets/pfp.jpg">
+
+
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+    <link rel="stylesheet" href="./assets/styles.css">
+
+    <script>
+        (function () {
+            var saved = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+
+    <style>
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+        }
+
+
+        .hero {
+            min-height: auto !important;
+            height: auto !important;
+            display: block !important;
+
+            padding: 70px 20px 0 !important;
+        }
+
+        .hero-content {
+            width: min(680px, 100%);
+            margin: 0 auto;
+        }
+
+
+        .avatar {
+            display: block !important;
+
+            width: 100px !important;
+            height: 100px !important;
+
+            min-width: 100px !important;
+            min-height: 100px !important;
+
+            max-width: 100px !important;
+            max-height: 100px !important;
+
+            margin: 0 auto 20px !important;
+
+            object-fit: cover !important;
+            object-position: center !important;
+
+            border-radius: 50% !important;
+
+            opacity: 1 !important;
+            visibility: visible !important;
+
+            box-sizing: border-box;
+        }
+
+        .hero-name {
+            margin-bottom: 6px;
+        }
+
+        .hero-aka {
+            margin-bottom: 25px;
+        }
+
+        .hero-bio {
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-links {
+            margin-top: 24px;
+        }
+
+
+        .team-section {
+            width: min(940px, calc(100% - 40px));
+
+            margin: 0 auto;
+
+            padding: 55px 0 90px;
+        }
+
+        .team-heading {
+            margin: 0 0 38px;
+
+            padding-left: 14px;
+
+            border-left: 3px solid currentColor;
+        }
+
+        .team-heading h2 {
+            margin: 0;
+
+            font-size: 25px;
+            line-height: 1.2;
+
+            font-weight: 600;
+
+            letter-spacing: 0.04em;
+        }
+
+
+        .team-members {
+            display: grid !important;
+
+            grid-template-columns:
+                repeat(5, 1fr) !important;
+
+            gap: 45px 32px !important;
+
+            width: 100%;
+        }
+
+        .member {
+            display: flex !important;
+
+            flex-direction: column !important;
+
+            align-items: center !important;
+
+            justify-content: flex-start !important;
+
+            text-align: center !important;
+
+            min-width: 0;
+
+            width: 100%;
+
+            color: inherit;
+
+            cursor: default;
+        }
+
+        .member-pfp {
+            display: block !important;
+
+            width: 68px !important;
+            height: 68px !important;
+
+            min-width: 68px !important;
+            min-height: 68px !important;
+
+            max-width: 68px !important;
+            max-height: 68px !important;
+
+            margin: 0 auto 11px !important;
+
+            padding: 0 !important;
+
+            object-fit: cover !important;
+            object-position: center !important;
+
+            border-radius: 50% !important;
+
+            border: 1px solid rgba(255, 255, 255, 0.16) !important;
+
+            background: #111 !important;
+
+            opacity: 1 !important;
+            visibility: visible !important;
+
+            position: relative !important;
+
+            z-index: 5 !important;
+
+            box-sizing: border-box !important;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .member:hover .member-pfp {
+            transform: translateY(-3px);
+
+            border-color:
+                rgba(255, 255, 255, 0.28) !important;
+        }
+
+        .member-name {
+            display: block !important;
+
+            width: 100% !important;
+
+            margin: 0 0 5px !important;
+
+            padding: 0 !important;
+
+            color: inherit !important;
+
+            font-size: 14px !important;
+
+            line-height: 1.3 !important;
+
+            font-weight: 600 !important;
+
+            opacity: 1 !important;
+
+            visibility: visible !important;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .member-title {
+            display: block !important;
+
+            width: 100% !important;
+
+            margin: 0 !important;
+
+            padding: 0 !important;
+
+            color: inherit !important;
+
+            font-size: 11px !important;
+
+            line-height: 1.4 !important;
+
+            font-weight: 400 !important;
+
+            opacity: 0.55 !important;
+
+            visibility: visible !important;
+
+            white-space: normal;
+        }
+
+
+        @media (max-width: 850px) {
+
+            .team-members {
+                grid-template-columns:
+                    repeat(4, 1fr) !important;
+
+                gap: 42px 25px !important;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .hero {
+                padding:
+                    50px 18px 0 !important;
+            }
+
+            .avatar {
+                width: 90px !important;
+                height: 90px !important;
+
+                min-width: 90px !important;
+                min-height: 90px !important;
+
+                max-width: 90px !important;
+                max-height: 90px !important;
+            }
+
+            .team-section {
+                width:
+                    calc(100% - 36px);
+
+                padding:
+                    45px 0 80px;
+            }
+
+            .team-heading {
+                margin-bottom: 32px;
+            }
+
+            .team-heading h2 {
+                font-size: 22px;
+            }
+
+            .team-members {
+                grid-template-columns:
+                    repeat(3, 1fr) !important;
+
+                gap: 38px 18px !important;
+            }
+
+            .member-pfp {
+                width: 62px !important;
+                height: 62px !important;
+
+                min-width: 62px !important;
+                min-height: 62px !important;
+
+                max-width: 62px !important;
+                max-height: 62px !important;
+            }
+
+            .member-name {
+                font-size: 12px !important;
+            }
+
+            .member-title {
+                font-size: 10px !important;
+            }
+
+        }
+
+        @media (max-width: 400px) {
+
+            .team-section {
+                width:
+                    calc(100% - 28px);
+            }
+
+            .team-members {
+                grid-template-columns:
+                    repeat(2, 1fr) !important;
+
+                gap: 35px 15px !important;
+            }
+
+            .member-pfp {
+                width: 64px !important;
+                height: 64px !important;
+
+                min-width: 64px !important;
+                min-height: 64px !important;
+
+                max-width: 64px !important;
+                max-height: 64px !important;
+            }
+
+            .member-name {
+                font-size: 12px !important;
+            }
+
+            .member-title {
+                font-size: 10px !important;
+            }
+
+        }
+
+        .home-footer {
+            position: relative !important;
+            margin-top: 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body class="home-page">
+
+
+    <div class="bg-canvas">
+
+        <div class="bg-blob bg-blob-1"></div>
+
+        <div class="bg-blob bg-blob-2"></div>
+
+        <div class="bg-grain"></div>
+
+    </div>
+
+
+    <button
+        class="theme-toggle"
+        aria-label="Toggle theme">
+
+        <svg
+            class="sun-icon"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <circle
+                cx="12"
+                cy="12"
+                r="5">
+            </circle>
+
+            <line
+                x1="12"
+                y1="1"
+                x2="12"
+                y2="3">
+            </line>
+
+            <line
+                x1="12"
+                y1="21"
+                x2="12"
+                y2="23">
+            </line>
+
+            <line
+                x1="4.22"
+                y1="4.22"
+                x2="5.64"
+                y2="5.64">
+            </line>
+
+            <line
+                x1="18.36"
+                y1="18.36"
+                x2="19.78"
+                y2="19.78">
+            </line>
+
+            <line
+                x1="1"
+                y1="12"
+                x2="3"
+                y2="12">
+            </line>
+
+            <line
+                x1="21"
+                y1="12"
+                x2="23"
+                y2="12">
+            </line>
+
+            <line
+                x1="4.22"
+                y1="19.78"
+                x2="5.64"
+                y2="18.36">
+            </line>
+
+            <line
+                x1="18.36"
+                y1="5.64"
+                x2="19.78"
+                y2="4.22">
+            </line>
+
+        </svg>
+
+
+        <svg
+            class="moon-icon"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <path
+                d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z">
+            </path>
+
+        </svg>
+
+    </button>
+
+
+    <main class="hero">
+
+        <div class="hero-content">
+
+
+            <img
+                src="./assets/1.gif"
+                alt="Sycorax"
+                class="avatar">
+
+
+            <h1 class="hero-name">
+                Sycorax
+            </h1>
+
+
+            <p class="hero-aka">
+                CTF &amp; Security Research Team
+            </p>
+
+
+            <p class="hero-bio">
+                We’re a CTF and security research team made up of people 
+                interested in cybersecurity, problem solving, and 
+                understanding how things work. We work together on challenges, 
+                share what we learn, and help each other improve along the way.
+
+            </p>
+
+
+            <p class="hero-bio">
+               We spend most of our time around web exploitation, 
+               reverse engineering, binary exploitation, cryptography, 
+               forensics, OSINT, and other areas of offensive security.
+            </p>
+
+
+            <p class="hero-bio">
+               We’re also looking for active members who are genuinely 
+               interested in security, CTFs, and learning together. 
+               You don’t need to know everything or be an expert in every category. 
+               If you’re curious, willing to participate, share what you know, 
+               and actually want to be part of the team, 
+               we’d be happy to have you around.
+            </p>
+
+<div class="hero-links">
+
+    <span>
+        want to join our team?
+
+        <a
+            href="https://discord.gg/Mvcs94FbuW"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            <u>join us on discord</u>
+
+        </a>
+    </span>
+
+</div>
+
+</div>
+
+</main>
+
+<section class="team-section">
+
+    <div class="team-heading">
+        <h2>Our Team</h2>
+    </div>
+
+    <div class="team-members">
+
+        <article class="member">
+
+            <img
+                class="member-pfp"
+                src="./assets/a.jpg"
+                alt="AbyssWatcher">
+
+            <a
+                class="member-name"
+                href="#"
+                onclick="this.classList.toggle('active'); return false;">
+                AbyssWatcher
+            </a>
+
+            <span class="member-title">
+                
+            </span>
+
+        </article>
+
+
+        <article class="member">
+
+            <img
+                class="member-pfp"
+                src="./assets/b.jpg"
+                alt="Brxzyy">
+
+            <a
+                class="member-name"
+                href="#"
+                onclick="this.classList.toggle('active'); return false;">
+                Brxzyy
+            </a>
+
+            <span class="member-title">
+                
+            </span>
+
+        </article>
+
+
+        <article class="member">
+
+            <img
+                class="member-pfp"
+                src="./assets/e.png"
+                alt="Echo">
+
+            <a
+                class="member-name"
+                href="#"
+                onclick="this.classList.toggle('active'); return false;">
+                Echo
+            </a>
+
+            <span class="member-title">
+                
+            </span>
+
+        </article>
+
+
+        <article class="member">
+
+            <img
+                class="member-pfp"
+                src="./assets/m.jpg"
+                alt="Mewtow">
+
+            <a
+                class="member-name"
+                href="#"
+                onclick="this.classList.toggle('active'); return false;">
+                Mewtow
+            </a>
+
+            <span class="member-title">
+                
+            </span>
+
+        </article>
+
+
+        <article class="member">
+
+            <img
+                class="member-pfp"
+                src="./assets/r.png"
+                alt="TheRoguePrince">
+
+            <a
+                class="member-name"
+                href="#"
+                onclick="this.classList.toggle('active'); return false;">
+                TheRoguePrince
+            </a>
+
+            <span class="member-title">
+                
+            </span>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+    <script>
+
+        const html =
+            document.documentElement;
+
+        const themeToggle =
+            document.querySelector('.theme-toggle');
+
+
+        /* Theme */
+
+        const savedTheme =
+            localStorage.getItem('theme') || 'dark';
+
+        html.setAttribute(
+            'data-theme',
+            savedTheme
+        );
+
+
+        function applyTheme(theme) {
+
+            html.setAttribute(
+                'data-theme',
+                theme
+            );
+
+            localStorage.setItem(
+                'theme',
+                theme
+            );
+
+        }
+
+
+        themeToggle.addEventListener(
+            'click',
+            function () {
+
+                const current =
+                    html.getAttribute(
+                        'data-theme'
+                    );
+
+                const next =
+                    current === 'light'
+                        ? 'dark'
+                        : 'light';
+
+
+                if (document.startViewTransition) {
+
+                    document.startViewTransition(
+                        function () {
+                            applyTheme(next);
+                        }
+                    );
+
+                } else {
+
+                    applyTheme(next);
+
+                }
+
+            }
+        );
+
+
+ 
+
+        function updateClock() {
+
+            const now =
+                new Date().toLocaleString(
+                    'en-US',
+                    {
+                        timeZone: '',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    }
+                );
+
+
+            const clock =
+                document.getElementById(
+                    'localTime'
+                );
+
+
+            if (clock) {
+
+                clock.textContent =
+                    now + ' IST';
+
+            }
+
+        }
+
+
+        updateClock();
+
+        setInterval(
+            updateClock,
+            1000
+        );
+
+
+        /* Console */
+
+        console.log(
+            '%cSycorax',
+            'font-family: monospace; font-size: 18px; font-weight: bold;'
+        );
+
+        console.log(
+            '%cCTF & Security Research Team',
+            'font-family: monospace; font-size: 12px;'
+        );
+
+    </script>
+
+</body>
+
+</html>
